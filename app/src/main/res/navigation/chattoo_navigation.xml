@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chattoo_navigation"
+    app:startDestination="@+id/navigation_login">
+    
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.jiho.chattoo.mainui.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_login_to_chat"
+            app:destination="@id/navigation_chat"
+            />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:name="com.jiho.chattoo.mainui.chat.ChatFragment"
+        android:label="@string/chat"
+        tools:layout="@layout/fragment_chat"/>
+</navigation>
