@@ -8,12 +8,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import com.jiho.chattoo.databinding.FragmentChatBinding;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class ChatFragment extends Fragment {
     private FragmentChatBinding binding;
     private ChatViewModel chatViewModel;
+    private MessageListAdapter adapter;
 
     @Nullable
     @Override
@@ -24,6 +28,11 @@ public class ChatFragment extends Fragment {
                 new ViewModelProvider(this).get(ChatViewModel.class);
         binding = FragmentChatBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        //todo: replace with real msg list
+        adapter = new MessageListAdapter(getContext(), List.of());
+        binding.recyclerChat.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerChat.setAdapter(adapter);
 
         return root;
     }

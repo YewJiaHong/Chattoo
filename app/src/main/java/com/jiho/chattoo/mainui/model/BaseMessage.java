@@ -6,8 +6,9 @@ import lombok.Data;
 @Data
 public class BaseMessage {
     private String messageText;
-    private Bitmap profileImage;
+    private String profileImage;
     private User sender;
     private String createdAt;
+    private String readReceipt;
     private String Date;
 }

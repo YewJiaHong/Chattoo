@@ -11,4 +11,5 @@
     <string name="enter_message">Enter Message</string>
     <string name="send">Send</string>
     <string name="user_icon">User Icon</string>
+    <string name="read_receipt">read_receipt</string>
 </resources>
