@@ -10,6 +10,7 @@
         android:id="@+id/recycler_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize"
         android:layout_marginBottom="16dp"
         app:layout_constrainedHeight="true"
         app:layout_constraintTop_toTopOf="parent"/>

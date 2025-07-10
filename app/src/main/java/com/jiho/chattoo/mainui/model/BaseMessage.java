@@ -8,7 +8,9 @@ public class BaseMessage {
     private String messageText;
     private String profileImage;
     private User sender;
-    private String createdAt;
+    /**
+     * Created time in epoch
+     */
+    private long createdAt;
     private String readReceipt;
-    private String Date;
 }

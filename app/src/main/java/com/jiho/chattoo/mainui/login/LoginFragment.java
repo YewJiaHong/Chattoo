@@ -1,5 +1,6 @@
 package com.jiho.chattoo.mainui.login;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,16 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.jiho.chattoo.R;
 import com.jiho.chattoo.databinding.FragmentLoginBinding;
+import com.jiho.chattoo.mainui.sharedPref.SharedPreferenceAbstract;
+import com.jiho.chattoo.mainui.sharedPref.SharedPreferenceAbstractImpl;
 import org.jetbrains.annotations.NotNull;
 
 
 public class LoginFragment extends Fragment {
     private FragmentLoginBinding binding;
-    LoginViewModel loginViewModel;
+    private LoginViewModel loginViewModel;
+    private Context mContext;
+    private SharedPreferenceAbstract sharedPreferenceAbstract;
 
     @Nullable
     @Override
@@ -29,6 +34,7 @@ public class LoginFragment extends Fragment {
                 new ViewModelProvider(this).get(LoginViewModel.class);
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        sharedPreferenceAbstract = new SharedPreferenceAbstractImpl(mContext);
 
         return root;
     }
@@ -37,6 +43,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //todo: to seperate login = one activity, contacts and chat to another activity
         loginViewModel.getLoginResult().observe(getViewLifecycleOwner(), result ->{
             if (result instanceof LoginResult.Loading){
                 binding.loginButton.setEnabled(false);
@@ -45,6 +52,10 @@ public class LoginFragment extends Fragment {
             } else if (result instanceof LoginResult.Success){
                 Toast.makeText(getContext(), "Login Success", Toast.LENGTH_SHORT).show();
                 NavController navController = NavHostFragment.findNavController(this);
+
+                //todo:update set self id with real id, and to move to viewmodel
+                sharedPreferenceAbstract.setSelfId("1");
+
                 navController.navigate(R.id.action_login_to_chat);
             } else if (result instanceof LoginResult.Error){
                 String message = ((LoginResult.Error) result).getMessage();
@@ -68,5 +79,11 @@ public class LoginFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onAttach(@NonNull @NotNull Context context) {
+        super.onAttach(context);
+        this.mContext = context;
     }
 }

@@ -40,7 +40,7 @@ public class MessageListAdapter extends RecyclerView.Adapter{
 
         void bind(BaseMessage message){
             mMessage.setText(message.getMessageText());
-            mTimestamp.setText(DateUtils.formatDateTime(itemView.getContext(), Long.parseLong(message.getCreatedAt()), DateUtils.FORMAT_SHOW_TIME));
+            mTimestamp.setText(DateUtils.formatDateTime(itemView.getContext(), message.getCreatedAt(), DateUtils.FORMAT_SHOW_TIME));
             mName.setText(message.getSender().getName());
             mProfileImage.setImageResource(R.drawable.icon);
         }
@@ -61,7 +61,7 @@ public class MessageListAdapter extends RecyclerView.Adapter{
 
         void bind(BaseMessage message){
             mMessage.setText(message.getMessageText());
-            mTimestamp.setText(DateUtils.formatDateTime(itemView.getContext(), Long.parseLong(message.getCreatedAt()), DateUtils.FORMAT_SHOW_TIME));
+            mTimestamp.setText(DateUtils.formatDateTime(itemView.getContext(), message.getCreatedAt(), DateUtils.FORMAT_SHOW_TIME));
         }
     }
 
@@ -103,7 +103,6 @@ public class MessageListAdapter extends RecyclerView.Adapter{
         BaseMessage message = messages.get(position);
 
         //if the sender is not the user themselves, meaning is received
-        //todo: when login success, set their self id in shared pref
         if (!String.valueOf(message.getSender().getId()).equals(sharedPreferenceAbstract.getSelfId())){
             return ViewTypeMessage.RECEIVED.getVal();
         } else{

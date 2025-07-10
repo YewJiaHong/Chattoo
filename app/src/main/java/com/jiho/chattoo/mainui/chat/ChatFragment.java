@@ -10,8 +10,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.jiho.chattoo.databinding.FragmentChatBinding;
+import com.jiho.chattoo.mainui.model.BaseMessage;
+import com.jiho.chattoo.mainui.model.User;
+import kotlin.Deprecated;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Date;
 import java.util.List;
 
 public class ChatFragment extends Fragment {
@@ -30,11 +34,25 @@ public class ChatFragment extends Fragment {
         View root = binding.getRoot();
 
         //todo: replace with real msg list
-        adapter = new MessageListAdapter(getContext(), List.of());
+        adapter = new MessageListAdapter(getContext(), List.of(setupBaseMessage(1), setupBaseMessage(2)));
         binding.recyclerChat.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerChat.setAdapter(adapter);
 
         return root;
+    }
+
+    @Deprecated(message = "For testing purposes only")
+    private BaseMessage setupBaseMessage(long id){
+        BaseMessage message = new BaseMessage();
+
+        User user = new User();
+        user.setId(id);
+        user.setName("JIHO");
+
+        message.setMessageText("abc");
+        message.setCreatedAt(System.currentTimeMillis());
+        message.setSender(user);
+        return message;
     }
 
     @Override
